@@ -63,14 +63,14 @@
 
 .gs-modal > div input:hover,
 .gs-modal > div input:focus {
-  border-color: #1bbf0d;
+  border-color: #5d3fd3;
 }
 
 .gs-modal > div button {
   height: 2em;
   border-radius: 10px;
   color: #fff;
-  background-color: #1bbf0d;
+  background-color: #5d3fd3;
 }
 
 /* ============Confirm Txn modal======== */
@@ -88,8 +88,8 @@
 }
 
 .success-txn > div > a {
-    text-decoration: underline;
-    color: #1bbf0d;
+  text-decoration: underline;
+  color: #5d3fd3;
 }
 
 .confirm-txn > div,
@@ -119,7 +119,7 @@
 }
 
 .confirm-btn {
-  background-color: #1bbf0d !important;
+  background-color: #5d3fd3 !important;
   margin: 0% 5%;
 }
 
@@ -128,34 +128,34 @@
   background-color: #6e6e6e !important;
 }
 .success-msg {
-    font-size: 15px !important;
-    margin-bottom: 10px;
+  font-size: 15px !important;
+  margin-bottom: 10px;
 }
 
-.gs-modal.success-txn.error-msg-modal{
+.gs-modal.success-txn.error-msg-modal {
   height: 250px;
   padding: 0;
   text-align: center;
 }
-.gs-modal.success-txn.error-msg-modal img{
+.gs-modal.success-txn.error-msg-modal img {
   padding: 0;
   width: 3.5rem;
   height: 3.5rem;
   margin: 1rem auto;
 }
 
-.gs-modal.success-txn.error-msg-modal > div{
+.gs-modal.success-txn.error-msg-modal > div {
   margin: -26px 0 40px 0;
-  color: #D75A4B;
+  color: #d75a4b;
 }
-.gs-modal.success-txn.error-msg-modal div.err-msg{
+.gs-modal.success-txn.error-msg-modal div.err-msg {
   margin: -35px 0 2rem 0;
   height: 2rem;
   text-align: left;
   padding: 0 1em;
   color: #6e6e6e;
 }
-.gs-modal.success-txn.error-msg-modal button{
+.gs-modal.success-txn.error-msg-modal button {
   width: 5rem;
   height: 2.5rem;
   margin: 0 1rem 0 0;
@@ -170,6 +170,6 @@
   text-decoration: underline;
 }
 
-.gs-modal.success-txn.error-msg-modal span{
+.gs-modal.success-txn.error-msg-modal span {
   margin-left: 1rem;
 }

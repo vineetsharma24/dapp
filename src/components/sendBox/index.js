@@ -103,6 +103,7 @@ class SendBox extends React.Component {
             amountsList,
             0,
             (txHash) => {
+              console.log(txHash);
               ctx.handleChange("txHash", txHash);
               ctx.handleChange("modalName", "success");
             }
@@ -150,100 +151,104 @@ class SendBox extends React.Component {
     }
 
     return (
-      <div className="board shadowize send-box">
-        <div>
-          <div className="mm-font">Account</div>
-          <div className="mm-acct">{ctx.metamaskAddress}</div>
-        </div>
-        <div className="form">
-          <label className={`${hideToken}`}>Contract Address</label>
+      <div>
+        <div style={{ height: "100px" }} />
+        <div className="board shadowize send-box">
+          <div>
+            <h2 className="ms-green">Multisend</h2>
+            <div className="mm-font">Account</div>
+            <div className="mm-acct">{ctx.metamaskAddress}</div>
+          </div>
+          <div className="form">
+            <label className={`${hideToken}`}>Contract Address</label>
 
-          <input
-            value={ctx.tokenAddress}
-            onChange={(e) => {
-              if (e.target.value.length >= 41) {
-                try {
-                  console.log(e.target.value);
-                  ethApi.getTokenSymbol(e.target.value).then((res) => {
-                    if (res) {
-                      ctx.handleChange("tokenSymbol", res);
-                    }
-                  });
-                } catch (err) {
-                  console.log("token name error ", err);
-                  return;
+            <input
+              value={ctx.tokenAddress}
+              onChange={(e) => {
+                if (e.target.value.length >= 41) {
+                  try {
+                    console.log(e.target.value);
+                    ethApi.getTokenSymbol(e.target.value).then((res) => {
+                      if (res) {
+                        ctx.handleChange("tokenSymbol", res);
+                      }
+                    });
+                  } catch (err) {
+                    console.log("token name error ", err);
+                    return;
+                  }
                 }
-              }
-              ctx.handleChange(e.target.name, e.target.value.trim());
-            }}
-            className={`${hideToken} mm-tokenad`}
-            placeholder="Enter token contract address"
-            name="tokenAddress"
-          />
-          <div className="address-amount">
-            <div>
-              <label>Address</label>
-              <input
-                name="newAddress"
-                value={ctx.newAddress}
-                className={`mm-newAddress`}
-                onChange={(e) => {
-                  ctx.handleChange(e.target.name, e.target.value.trim());
-                }}
-                placeholder="0x..."
-              />
+                ctx.handleChange(e.target.name, e.target.value.trim());
+              }}
+              className={`${hideToken} mm-tokenad`}
+              placeholder="Enter token contract address"
+              name="tokenAddress"
+            />
+            <div className="address-amount">
+              <div>
+                <label>Address</label>
+                <input
+                  name="newAddress"
+                  value={ctx.newAddress}
+                  className={`mm-newAddress`}
+                  onChange={(e) => {
+                    ctx.handleChange(e.target.name, e.target.value.trim());
+                  }}
+                  placeholder="0x..."
+                />
+              </div>
+              <div>
+                <label className="amount-input">Amount</label>
+                <input
+                  name="newAmount"
+                  value={ctx.newAmount}
+                  onChange={(e) => {
+                    ctx.handleChange(e.target.name, e.target.value);
+                  }}
+                  className="amount-input"
+                  placeholder="0.0"
+                  type="number"
+                />
+              </div>
+              <div className="flex-container">
+                <label className="row">{"."}</label>
+                <button
+                  onClick={this.addNew}
+                  className="ms-btn wt-icon ms-green-bg"
+                >
+                  Add +
+                </button>
+              </div>
             </div>
-            <div>
-              <label className="amount-input">Amount</label>
-              <input
-                name="newAmount"
-                value={ctx.newAmount}
-                onChange={(e) => {
-                  ctx.handleChange(e.target.name, e.target.value);
-                }}
-                className="amount-input"
-                placeholder="0.0"
-                type="number"
-              />
+
+            <div className="address-table">
+              <div className="th">
+                <span>Address</span>
+                <span>Amount</span>
+              </div>
+              <div className="tb">{this.renderTableRows()}</div>
             </div>
-            <div className="flex-container">
-              <label className="row">{"."}</label>
+            <div className="footer-send">
               <button
-                onClick={this.addNew}
+                onClick={this.handleSend}
+                disabled={disabled}
                 className="ms-btn wt-icon ms-green-bg"
               >
-                Add +
+                {btnText}
               </button>
+              <span>{`${
+                ctx.tip
+                  ? (
+                      ctx.amounts.reduce((a, b) => Number(a) + Number(b), 0) +
+                      Number(ctx.tipAmount)
+                    ).toFixed(4)
+                  : ctx.amounts
+                      .reduce((a, b) => Number(a) + Number(b), 0)
+                      .toFixed(4)
+              } ${tokenSym} to ${
+                ctx.tip ? ctx.addresses.length + 1 : ctx.addresses.length
+              } addresses`}</span>
             </div>
-          </div>
-
-          <div className="address-table">
-            <div className="th">
-              <span>Address</span>
-              <span>Amount</span>
-            </div>
-            <div className="tb">{this.renderTableRows()}</div>
-          </div>
-          <div className="footer-send">
-            <button
-              onClick={this.handleSend}
-              disabled={disabled}
-              className="ms-btn wt-icon ms-green-bg"
-            >
-              {btnText}
-            </button>
-            <span>{`${
-              ctx.tip
-                ? (
-                    ctx.amounts.reduce((a, b) => Number(a) + Number(b), 0) +
-                    Number(ctx.tipAmount)
-                  ).toFixed(4)
-                : ctx.amounts
-                    .reduce((a, b) => Number(a) + Number(b), 0)
-                    .toFixed(4)
-            } ${tokenSym} to ${
-              ctx.tip ? ctx.addresses.length + 1 : ctx.addresses.length
-            } addresses`}</span>
           </div>
         </div>
       </div>

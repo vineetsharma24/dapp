@@ -6,17 +6,22 @@ export default withContext(({ Ref, ctx }) => (
   <div ref={Ref} className="board shadowize gs-modal success-txn">
     <div>
       <div>Transaction Successful!</div>
-      <div className="success-msg">{`Your ${ctx.selected} has been succesfully distributed`}</div>
+      <div className="success-msg">{`Your MATIC has been succesfully distributed`}</div>
       <a
         target="_blank"
         rel="noopener noreferrer"
-        href={`https://ropsten.etherscan.io/tx/${ctx.txHash}`}
+        href={`https://mumbai.polygonscan.com/tx/${ctx.txHash}`}
       >
-        View on etherscan
+        View on polygonscan
       </a>
       <div>
-        <Button to="/send" handleClick={() => ctx.handleChange("modalName","")} customStyle="ms-btn back-btn vyper-btn">No thanks</Button>
-        <Button to="donate" customStyle="ms-btn confirm-btn">Donate</Button>
+        <Button
+          to="/send"
+          handleClick={() => ctx.handleChange("modalName", "")}
+          customStyle="ms-btn back-btn vyper-btn"
+        >
+          No thanks
+        </Button>
       </div>
     </div>
   </div>
